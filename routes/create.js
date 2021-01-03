@@ -1,13 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const createController = require('../controllers/create-cube');
+const { createCube } = require('../controllers/database');
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
-
-const getCreating = async (req, res, next) => {
-	await createController(req.body);
-	next();
-}
 
 router.get('/', (req, res) => {
 	res.render('create', {
@@ -15,7 +10,8 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.post('/', getCreating, (req, res) => {
+router.post('/', (req, res) => {
+	createCube(req.body);
 	res.redirect('/');
 })
 

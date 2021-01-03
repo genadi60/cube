@@ -10,8 +10,6 @@ const create = require('./routes/create');
 const notFound = require('./routes/not-found');
 
 require('./config/express')(app);
-//require('dotenv').config(__dirname + './data-env.env');
-//require('./config/routes')(app);
 
 app.use('/', home);
 app.use('/create', create);

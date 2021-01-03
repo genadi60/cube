@@ -1,12 +1,13 @@
 const express = require('express');
-const getCubes = require('../controllers/cubes');
+const { getAllCubes } = require('../controllers/database');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	//console.log(process.env.DB_NAME);
-	res.render('home', {
-		title: 'Cubicle',
-		cubes: getCubes(),
+	getAllCubes( function(err, cubes){
+		res.render('home', {
+			title: 'Cubicle',
+			cubes,
+		});
 	});
 })
 
