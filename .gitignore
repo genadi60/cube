@@ -107,4 +107,4 @@ dist
 
 config/database.json
 
-.env
+data-env.env
