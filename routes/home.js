@@ -1,9 +1,12 @@
 const express = require('express');
-const router = new express.Router();
+const getCubes = require('../controllers/cubes');
+const router = express.Router();
 
 router.get('/', (req, res) => {
+	//console.log(process.env.DB_NAME);
 	res.render('home', {
-		title: 'Browser',
+		title: 'Cubicle',
+		cubes: getCubes(),
 	});
 })
 

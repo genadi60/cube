@@ -1,5 +1,5 @@
 <main>
-  <h1>{{title}}</h1>
+  <h1>Browser</h1>
   <form action="" method="">
     <input type="text" class="search" name="search" placeholder="Search...">
     <input type="number" name="from" class="difficulty" placeholder="Difficulty from...">
@@ -7,7 +7,12 @@
     <input type="number" name="to" class="difficulty" placeholder="Difficulty to...">
     <input type="submit" value="search">
   </form>
-  <div class="cube">
+  {{#each cubes}}
+    {{> cube}}
+  {{else}}
+  <h1>No cubes were found</h1>
+  {{/each}}
+  {{!-- <div class="cube">
     <img class="cube" src="https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg">
     <p class="name">Gan356 Air SM</p>
     <p><span>Difficulty level:</span> 3</p>
@@ -16,19 +21,39 @@
   <div class="cube">
     <img class="cube" src="https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg">
     <p class="name">Eco-Dark</p>
+    If you are a fan of the DC universe you are going to love this thing. 
+    Eco-Dark Rubik’s Cube is a savior for those who are not into stickers and colors. 
+    Get the darker side of your brain unleashed through this 
+    environment-friendly Rubik’s cube that is completely black.
     <p><span>Difficulty level:</span> 6</p>
     <a class="btn" href="/details/5c39f1851ab3b24f5c03e183">Details</a>
   </div>
   <div class="cube">
     <img class="cube" src="https://images-na.ssl-images-amazon.com/images/I/61izOzq%2BBAL._SY355_.jpg">
     <p class="name">Pyraminx</p>
+    The Pyraminx is a triangular pyramid-shaped (or tetrahedron) puzzle. 
+    The parts are arranged in a pyramidal pattern on each side of the puzzle. 
+    The layers can be rotated with respect to each vertex, and the individual tips can be rotated as well. 
+    It was designed by Uwe Meffert in 1970, but was nothing was done with the design until he brought it to Hong Kong 
+    for production after seeing the success of the Rubik's Cube.
+    The Pyraminx has 4 axial pieces, 6 edge pieces, and 4 trivial tips, and a total of 3,732,480 different possible combinations. 
+    Every position can be solved in a maximum of 11 moves.
+    The world record for the fastest single solve is 0.91 seconds held by a Dominik Gorny. 
+    The World record average is 1.86 seconds held by Tymon Kolasiński.
     <p><span>Difficulty level:</span> 1</p>
     <a class="btn" href="/details/5c3a6888f78d6638ec8fdad6">Details</a>
   </div>
   <div class="cube">
     <img class="cube" src="https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg">
     <p class="name">Megaminx</p>
+    The Megaminx is made in the shape of a dodecahedron, and has 12 faces and center pieces, 20 corner pieces, and 30 edge pieces. 
+    The face centers each have a single color, which identifies the color of that face in the solved state. The edge pieces have two colors, and the corner pieces have three. 
+    Each face contains a center piece, 5 corner pieces and 5 edge pieces. The corner and edge pieces are shared with adjacent faces. 
+    The face centers can only rotate in place, but the other pieces can be permuted by twisting the face layer around the face center.
+    There are two main versions of the Megaminx: one with 6 colors, with opposite faces having the same color, and one with 12 different colors. 
+    The 12-color Megaminx is the only type legal in official WCA competitions, and is therefore much more popular than the 6-color version.
+    The objective of the puzzle is to scramble the colors, and then restore it to its original state of having one color per face.
     <p><span>Difficulty level:</span> 3</p>
     <a class="btn" href="/details/5c3a68d9f78d6638ec8fdad7">Details</a>
-  </div>
+  </div> --}}
 </main>  
