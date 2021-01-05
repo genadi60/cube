@@ -1,5 +1,6 @@
 require('dotenv').config();
-
+const port = process.env.PORT;
+const host = process.env.HOST;
 const env = process.env.NODE_ENV || 'development';
 
 const config = require('./config/config')[env];
@@ -19,4 +20,4 @@ app.use('/about', about);
 app.use('/details', details);
 app.use('*', notFound);
 
-app.listen(config.port, console.log(`Listening on port ${config.port}! Now its up to you...`));
+app.listen(config.port, console.log(`Server running at http://${host}:${port}/`));

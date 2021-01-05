@@ -86,28 +86,28 @@
 // 	});
 // };
 
-//  Working with Mongoose in Node.js
+//  Working with MongoDB Atlas
 const mongoose = require('mongoose');
-// const DB_USER = process.env.DB_USER || '';
-// const DB_PASS = process.env.DB_PASS || '';
-// const DB_NAME = process.env.DB_NAME || '';
-// const connectionStr = `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.ih30w.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
-
 const Cube = require('../models/cube');
-const { v4 } = require('uuid')
 
-// mongoose.connect(connectionStr, function( err ){
-// 	if (err) {
-// 		console.error('Something happen with DB.');
-// 		throw err;
-// 	} 
-// });
+const DB_USER = process.env.DB_USER || '';
+const DB_PASS = process.env.DB_PASS || '';
+const DB_NAME = process.env.DB_NAME || '';
+const connectionStr = `mongodb+srv://${DB_USER}:${DB_PASS}@cubes.iev4k.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`//`mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.ih30w.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
+
+mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
+	if (err) {
+		console.log('Error: ', err);
+		return;
+	} else {
+		console.log('Server connect to MongoDB Atlas.');
+	}
+});
 
 const createCube = (model) => {
 	const { name, description, imageUrl, difficulty } = model;
-	const id = v4();
+	
 	const newCube = new Cube({
-		id,
 		name, 
 		description, 
 		imageUrl, 
@@ -122,8 +122,8 @@ const createCube = (model) => {
 	});
 }
 
-const getCubeById = ( id, callback ) => {
-	Cube.findOne({ id:`${id}`}).lean()
+const getCubeById = async ( id, callback ) => {
+	await Cube.findOne({ _id:`${id}`}).lean()
 	.exec(function (err, cube) {
 		if (err) {
 			console.error(err);
@@ -133,8 +133,8 @@ const getCubeById = ( id, callback ) => {
 	});
 };
 
-const getAllCubes = (callback) => {
-	Cube.find().lean()
+const getAllCubes = async (callback) => {
+	await Cube.find().lean()
 	.exec(function (err, cubes) {
 		if (err) {
 			console.error(err);
