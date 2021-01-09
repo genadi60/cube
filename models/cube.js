@@ -1,28 +1,20 @@
-// const { v4 } = require('uuid')
-
-// class Cube{
-// 	constructor(name, description, imageUrl, difficulty){
-// 		this.id = v4();
-// 		this.name = name;
-// 		this.description = description;
-// 		this.imageUrl = imageUrl;
-// 		this.difficulty = difficulty;
-// 	}
-// }
-
-// module.exports = Cube;
-
-// Working with Mongoose on Node.js
 const mongoose = require('mongoose');
- //Str = 'mongodb://localhost:27017/test';
+const { ObjectId } = require('mongodb');
 
 const cubeSchema = new mongoose.Schema({
 	name: {type: String, required: true, unique: true},
-	description: {type: String, required: true, minLength:10, maxLength:200},
+	description: {type: String, required: true, minLength:5, maxLength:500},
 	imageUrl: {type: String, required: true},
 	difficulty: {type: Number, required: true, minValue:1, maxValue:6},
+	accessories: [{ 
+		type: ObjectId, 
+		ref: 'Accessory' 
+	}],
 });
 
+cubeSchema.path('imageUrl').validate(function(url){
+	return url.startsWith('http://') || url.startsWith('https://');
+});
 
 const Cube = mongoose.model('Cube', cubeSchema, "cubes");
 module.exports = Cube;
