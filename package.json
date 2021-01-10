@@ -13,9 +13,16 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
+        "cz-conventional-changelog": "3.3.0",
         "nodemon": "^1.19.2"
     },
     "scripts": {
-        "start": "nodemon"
+        "start": "nodemon",
+        "commit": "cz"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }

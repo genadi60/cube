@@ -33,9 +33,8 @@ const deleteCube = async (id) => {
 
 const getElementsToAtach = async (id) => {
 	const cube = await Cube.findOne({ _id:`${id}`}).lean();
-	const accessories = await Accessory.find().lean();
-	const accessoriesToAtach = accessories.filter(accessory => !accessory.cubes.some( cubeId => cubeId.equals(id)));
-	return [cube, accessoriesToAtach];
+	const accessories = await Accessory.find({ cubes: { $nin: id } }).lean();
+	return [cube, accessories];
 };
 
 const atachAccessory = async (cubeId, acc) => {
