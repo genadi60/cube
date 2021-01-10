@@ -1,5 +1,5 @@
-const Cube = require('../models/cube');
-const Accessory = require('../models/accessory');
+const Cube = require('../../models/cube');
+const Accessory = require('../../models/accessory');
 //const { getAccessoryById, getAvailableAccessories } = require('../controllers/accessory');
 
 const createCube = async (model) => {
