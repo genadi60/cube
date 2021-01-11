@@ -1,4 +1,5 @@
-const User = require('../../models/user')
+const User = require('../../models/user');
+const bcrypt = require('bcrypt');
 
 const Register = async (req, res) => {
 	const {	username, password,	repeatPassword } = req.body;
@@ -11,9 +12,14 @@ const Register = async (req, res) => {
 		throw new Error('Password and Re-Password not match.');
 	}
 
-	const user = new User({ username, password} );
-	const result = await user.save();
-	console.log(result);
+	bcrypt.hash(password, 10, async function(err, hashedPassword) {
+		if (err) {
+			throw err;
+		}
+		const user = new User({ username, password: hashedPassword });
+		const result = await user.save();
+		//console.log(result);
+	});
 };
 
 const Login = async (user, password) => {
