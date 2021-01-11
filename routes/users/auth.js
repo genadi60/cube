@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
-const Register = require('../../controllers/users/auth');
+const { Register } = require('../../controllers/users/auth');
 
 router.get('/register', (req, res) => {
 	res.render('users/registerPage', {
@@ -12,9 +12,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	const user = req.formData.user;
-	const password = req.formData.password;
-	await Register(user, password);
+	await Register(req, res);
 	res.redirect('/');
 })
 

@@ -1,4 +1,4 @@
-const Accessory = require('../models/accessory');
+const Accessory = require('../../models/accessory');
 
 const createAccessory = async (model) => {
 	const { name, description, imageUrl } = model;
