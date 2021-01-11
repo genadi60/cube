@@ -5,12 +5,14 @@ module.exports = {
         user: process.env.DB_USER || '',
         pass: process.env.DB_PASS || '',
         dbName: process.env.DB_NAME || '',
+        privateKey: process.env.PRIVATE_KEY || 'privateKey',
         options: {
             useNewUrlParser: true, 
             useUnifiedTopology: true, 
             useCreateIndex: true
         },
         dbUrl: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cubes.iev4k.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+        
     },
     production: {
     }
