@@ -2,9 +2,6 @@ module.exports = {
     development: {
         port: process.env.PORT || 3000,
         host: process.env.HOST || 'localhost',
-        user: process.env.DB_USER || '',
-        pass: process.env.DB_PASS || '',
-        dbName: process.env.DB_NAME || '',
         privateKey: process.env.PRIVATE_KEY || 'privateKey',
         options: {
             useNewUrlParser: true, 

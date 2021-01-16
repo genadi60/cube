@@ -10,7 +10,9 @@
       <option value="{{_id}}">{{name}}</option>
       {{/each}}
     </select>
-    <input type="submit" value="Attach">
+    {{#if isLoggedIn}}
+      <input type="submit" value="Attach">
+    {{/if}}
   </form>
   {{else}}
   <h3 class="italic">This cube has all available accessories so far or there is no available at all...

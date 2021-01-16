@@ -12,7 +12,7 @@ const createCube = async (model) => {
 	});
 	try {
 		await newCube.save();
-		console.log('Cube is successfully stored');
+		//console.log('Cube is successfully stored');
 	} catch (error) {
 		throw error;
 	}
@@ -21,7 +21,11 @@ const createCube = async (model) => {
 const getCubeById = async ( id ) => {
 	const cube = await Cube.findOne({ _id:`${id}`}).populate('accessories').lean();
 	return cube;
-};		
+};
+
+const editCube = async ( model ) => {
+
+}
 
 const getAllCubes = async () => {
 	return await Cube.find().lean();
@@ -53,6 +57,7 @@ const atachAccessory = async (cubeId, acc) => {
 
 module.exports = {
 	createCube,
+	editCube,
 	getCubeById,
 	getAllCubes,
 	deleteCube,

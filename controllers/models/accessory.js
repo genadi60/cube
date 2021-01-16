@@ -10,7 +10,7 @@ const createAccessory = async (model) => {
 			imageUrl
 		});
 		await newAccessory.save();
-		console.log('Accessory is successfully stored');
+		//console.log('Accessory is successfully stored');
 	} catch (error) {
 		throw error;
 	}

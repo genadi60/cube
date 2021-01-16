@@ -2,41 +2,49 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
+const { isLoggedIn } = require('../../controllers/users/auth');
+const { createAccessory } = require('../../controllers/models/accessory');
+const { atachAccessory, getElementsToAtach } = require('../../controllers/models/cube');
 
 
-const { createAccessory, getAccessoryById } = require('../../controllers/models/accessory');
-
-
-router.get('/create/accessory', (req, res) => {
+router.get('/create/accessory', isLoggedIn, (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	res.render('models/accessory/create-accessory', {
 		title: 'Add accessory',
+		isLoggedIn: req.isLoggedIn,
 	});
 });
 
 router.post('/create/accessory', async (req, res) => {
 	try {
 		await createAccessory(req.body);
-		res.redirect('/');
+		return res.redirect('/');
 	} catch (error) {
-		console.log('Err: ' + error.message);
-		res.redirect('/create/accessory');
+		//console.log('Err: ' + error.message);
+		return res.redirect('/create/accessory');
 	}
 });
 
-router.get('/atach/accessory/:id', async (req, res) => {
-	const [cube, accessories] = await getElementsToAtach(req.params.id);
+router.get('/atach/accessory/:_id', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
+	const [cube, accessories] = await getElementsToAtach(req.params._id);
 	const hasAvailableAccessory = accessories.length > 0;
-	res.render('accessory/atach-accessory', {
+	res.render('models/accessory/atach-accessory', {
 		title: 'Add accessory',
 		cube,
 		accessories,
 		hasAvailableAccessory,
+		isLoggedIn: req.isLoggedIn,
 	});
 });
 
-router.post('/atach/accessory/:id', async (req, res) => {
-	await atachAccessory(req.params.id, req.body);
-	res.redirect('/details/' + req.params.id);
+router.post('/atach/accessory/:_id', async (req, res) => {
+	await atachAccessory(req.params._id, req.body);
+	res.redirect('/details/' + req.params._id);
 });
 
 module.exports = router;

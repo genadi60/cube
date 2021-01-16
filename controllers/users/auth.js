@@ -4,8 +4,25 @@ const jwt = require('jsonwebtoken');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../../config/config')[env];
 
+const isLoggedIn = (req, res, next) => {
+	const token = req.cookies['uauth'];
+	if (!token) {
+		req.isLoggedIn = false;
+	} else {
+		try {
+			jwt.verify(token, config.privateKey);
+			req.isLoggedIn = true;
+		} catch (error) {
+			//console.log('Cookie error: ', error.message);
+			req.isLoggedIn = false;
+		}
+	}
+	next();
+};
+
 const generateToken = (data) => {
-	return jwt.sign(data, config.privateKey);
+	const key = config.privateKey;
+	return jwt.sign(data, key, { expiresIn: 3600 });
 };
 
 const Register = async (req, res) => {
@@ -35,14 +52,19 @@ const Login = async (req, res,) => {
 
 	const user = await User.findOne({ username });
 	const status = await bcrypt.compare(password, user.password);
-	console.log(status);
 	if (status) {
 		const token = generateToken({ userId: user._id, username: user.username });
 		res.cookie('uauth', token);
 	}
 };
 
+const Logout = (req, res) => {
+	res.clearCookie('uauth');
+};
+
 module.exports = {
 	Login,
 	Register,
+	isLoggedIn,
+	Logout,
 };
