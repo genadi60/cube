@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
-const { isLoggedIn } = require('../../controllers/users/auth');
+const { isLoggedIn, getUserId } = require('../../controllers/users/auth');
 
 
 const { createCube, editCube, getCubeById, deleteCube } = require('../../controllers/models/cube');
@@ -18,22 +18,28 @@ router.get('/create', isLoggedIn, (req, res) => {
 	});
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	try {
-		await createCube(req.body);
+		await createCube(req);
 		res.redirect('/');
 	} catch (error) {
-		//console.log('Err: ' + error.message);
+		console.log('Err: ' + error.message);
 		res.redirect('/create');
 	}
 })
 
 router.get('/details/:_id', isLoggedIn, async (req, res) => {
 	const cube = await getCubeById(req.params._id);
+	const userId = getUserId(req);
+	const isCreator = userId.localeCompare(cube.creator) === 0 ? true : false;
 	res.render('models/cube/details', {
 		title: 'Details | Cubicle',
 		cube,
 		isLoggedIn: req.isLoggedIn,
+		isCreator,
 	});
 });
 
@@ -49,7 +55,10 @@ router.get('/edit/:_id', isLoggedIn, async (req, res) => {
 	})
 });
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	try {
 		await editCube(req.body);
 	} catch (error) {
@@ -70,7 +79,10 @@ router.get('/delete/:_id', isLoggedIn, async (req, res) => {
 	})
 });
 
-router.post('/delete/:_id', async (req, res) => {
+router.post('/delete/:_id', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	await deleteCube(req.params._id);
 	res.redirect('/');
 });

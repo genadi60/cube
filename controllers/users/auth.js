@@ -13,11 +13,17 @@ const isLoggedIn = (req, res, next) => {
 			jwt.verify(token, config.privateKey);
 			req.isLoggedIn = true;
 		} catch (error) {
-			//console.log('Cookie error: ', error.message);
+			console.log('Cookie error: ', error.message);
 			req.isLoggedIn = false;
 		}
 	}
 	next();
+};
+
+const getUserId = (req) => {
+	const token = req.cookies['uauth'];
+	const decoded = jwt.decode(token);
+	return decoded.userId;
 };
 
 const generateToken = (data) => {
@@ -67,4 +73,5 @@ module.exports = {
 	Register,
 	isLoggedIn,
 	Logout,
+	getUserId,
 };

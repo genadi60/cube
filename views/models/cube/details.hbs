@@ -4,7 +4,7 @@
   <p><span>Description:</span> {{cube.description}}</p>
   <p><span>Difficulty level:</span> {{cube.difficulty}}</p>
   <a class="btn" href="/">Back</a>
-  {{#if isLoggedIn}}
+  {{#if isCreator}}
   <a class="btn" href="/atach/accessory/{{cube._id}}">Atach accessory</a>
   <a class="btn" href="/delete/{{cube._id}}">Delete</a>
   <a class="btn" href="/edit/{{cube._id}}">Edit</a>

@@ -6,7 +6,8 @@ module.exports = {
         options: {
             useNewUrlParser: true, 
             useUnifiedTopology: true, 
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false,
         },
         dbUrl: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cubes.iev4k.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
         

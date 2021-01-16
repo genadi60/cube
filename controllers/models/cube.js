@@ -1,14 +1,17 @@
 const Cube = require('../../models/cube');
 const Accessory = require('../../models/accessory');
+const { getUserId } = require('../users/auth');
 //const { getAccessoryById, getAvailableAccessories } = require('../controllers/accessory');
 
-const createCube = async (model) => {
-	const { name, description, imageUrl, difficulty } = model;
+const createCube = async (req) => {
+	const { name, description, imageUrl, difficulty } = req.body;
+	const creator = getUserId(req);
 	const newCube = new Cube({
 		name, 
 		description, 
 		imageUrl, 
-		difficulty
+		difficulty,
+		creator,
 	});
 	try {
 		await newCube.save();
