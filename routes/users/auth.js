@@ -15,7 +15,10 @@ router.get('/register', isLoggedIn, (req, res) => {
 	})
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', isLoggedIn, async (req, res) => {
+	if (req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	await Register(req, res);
 	res.redirect('/');
 })
@@ -30,7 +33,10 @@ router.get('/login', isLoggedIn, (req, res) => {
 	})
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', isLoggedIn, async (req, res) => {
+	if (req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	await Login(req, res);
 	res.redirect('/');
 });

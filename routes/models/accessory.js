@@ -17,7 +17,10 @@ router.get('/create/accessory', isLoggedIn, (req, res) => {
 	});
 });
 
-router.post('/create/accessory', async (req, res) => {
+router.post('/create/accessory', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	try {
 		await createAccessory(req.body);
 		return res.redirect('/');
@@ -42,7 +45,10 @@ router.get('/atach/accessory/:_id', isLoggedIn, async (req, res) => {
 	});
 });
 
-router.post('/atach/accessory/:_id', async (req, res) => {
+router.post('/atach/accessory/:_id', isLoggedIn, async (req, res) => {
+	if (!req.isLoggedIn) {
+		return res.redirect('/');
+	}
 	await atachAccessory(req.params._id, req.body);
 	res.redirect('/details/' + req.params._id);
 });
