@@ -55,12 +55,21 @@ const Login = async (req, res,) => {
 	if(!username || !password) {
 		throw new Error('Invalid input data.');
 	}
-
-	const user = await User.findOne({ username });
-	const status = await bcrypt.compare(password, user.password);
-	if (status) {
-		const token = generateToken({ userId: user._id, username: user.username });
-		res.cookie('uauth', token);
+	try {
+		const user = await User.findOne({ username });
+		if (user) {
+			const status = await bcrypt.compare(password, user.password);
+			if (status) {
+				const token = generateToken({ userId: user._id, username: user.username });
+				res.cookie('uauth', token);
+			} else {
+				throw new Error('Username or password incorrect.');
+			}
+		} else {
+			throw new Error('Username or password incorrect.');
+		}
+	} catch (error) {
+		throw error;
 	}
 };
 

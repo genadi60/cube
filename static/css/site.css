@@ -53,6 +53,21 @@ header ul li a:hover {
     text-decoration: underline;
 }
 
+#notifications {
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    width: 50%;
+    padding: 0.5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background: rgb(231, 118, 118);
+    color: white;
+    border-radius: 5px;
+    text-decoration: underline;
+}
+
 main {
     margin: 0 4em;
     border-radius: 15px;
@@ -105,10 +120,18 @@ button, main a.btn {
     color: white;
 }
 
+.details a.btn{
+    width: 28%;
+}
+
 button:hover {
     background-color: #0B2133;
     color: white;
     cursor: pointer;
+}
+
+a.btn:hover{
+    text-decoration: underline;
 }
 
 a {
@@ -155,9 +178,10 @@ form label {
     border-top-right-radius: 4px;
 }
 
-input[type=text],
-input[type=number],
-select,
+input[type=text], 
+input[type=number], 
+input[type=password], 
+select, 
 textarea {
     width: 100%;
     display: inline-block;
@@ -252,7 +276,6 @@ footer {
 
 /*Animations & Transitions
 */
-
 
 @-webkit-keyframes fadeOut {
     from {

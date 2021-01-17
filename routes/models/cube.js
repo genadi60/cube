@@ -26,8 +26,16 @@ router.post('/create', isLoggedIn, async (req, res) => {
 		await createCube(req);
 		res.redirect('/');
 	} catch (error) {
-		console.log('Err: ' + error.message);
-		res.redirect('/create');
+		const {	name, description,	imageUrl, difficulty } = req.body;
+		res.render('models/cube/create', {
+			title: 'Create | Cubicle',
+			isLoggedIn: req.isLoggedIn,
+			message: error.message,
+			name,
+			description,
+			imageUrl,
+			difficulty,
+		})
 	}
 })
 
