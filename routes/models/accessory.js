@@ -23,10 +23,17 @@ router.post('/create/accessory', isLoggedIn, async (req, res) => {
 	}
 	try {
 		await createAccessory(req.body);
-		return res.redirect('/');
+		res.redirect('/');
 	} catch (error) {
-		//console.log('Err: ' + error.message);
-		return res.redirect('/create/accessory');
+		const {	name, description,	imageUrl } = req.body;
+		res.render('models/accessory/create-accessory', {
+			title: 'Add accessory',
+			isLoggedIn: req.isLoggedIn,
+			message: error.message,
+			name,
+			description,
+			imageUrl,
+		})
 	}
 });
 

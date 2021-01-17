@@ -19,8 +19,20 @@ router.post('/register', isLoggedIn, async (req, res) => {
 	if (req.isLoggedIn) {
 		return res.redirect('/');
 	}
-	await Register(req, res);
-	res.redirect('/');
+	try {
+		await Register(req, res);
+		res.redirect('/');
+	} catch (error) {
+		const {	username, password,	repeatPassword } = req.body;
+		res.render('users/registerPage', {
+			title: 'Register Page',
+			isLoggedIn: req.isLoggedIn,
+			message: error.message,
+			username,
+			password,
+			repeatPassword,
+		})
+	}
 })
 
 router.get('/login', isLoggedIn, (req, res) => {
@@ -37,8 +49,20 @@ router.post('/login', isLoggedIn, async (req, res) => {
 	if (req.isLoggedIn) {
 		return res.redirect('/');
 	}
-	await Login(req, res);
-	res.redirect('/');
+	try {
+		await Login(req, res);
+		res.redirect('/');
+	} catch (error) {
+		const {	username, password } = req.body;
+		res.render('users/loginPage', {
+			title: 'Register Page',
+			isLoggedIn: req.isLoggedIn,
+			message: error.message,
+			username,
+			password,
+		})
+	}
+	
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {

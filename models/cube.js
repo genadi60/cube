@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
 const cubeSchema = new mongoose.Schema({
-	name: {type: String, required: true, unique: true},
-	description: {type: String, required: true, minLength:5, maxLength:500},
+	name: {type: String, required: true, match: /^[A-Za-z0-9\s]{5,}$/g},
+	description: {type: String, required: true, match: /^[A-Za-z0-9\s]{20,500}$/g},
 	imageUrl: {type: String, required: true},
 	difficulty: {type: Number, required: true, minValue:1, maxValue:6},
 	creator: {type: ObjectId, ref: 'User', required: true},
