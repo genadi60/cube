@@ -39,10 +39,17 @@ router.post('/create', isLoggedIn, async (req, res) => {
 	}
 })
 
+const isEquals = (a, b) => {
+	return ;
+};
+
 router.get('/details/:_id', isLoggedIn, async (req, res) => {
 	const cube = await getCubeById(req.params._id);
 	const userId = getUserId(req);
-	const isCreator = userId.localeCompare(cube.creator) === 0 ? true : false;
+	let isCreator = false;
+	if (userId) {
+		isCreator = userId.localeCompare(cube.creator) === 0 ? true : false;
+	}
 	res.render('models/cube/details', {
 		title: 'Details | Cubicle',
 		cube,

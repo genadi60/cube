@@ -1,7 +1,6 @@
 const Cube = require('../../models/cube');
 const Accessory = require('../../models/accessory');
 const { getUserId } = require('../users/auth');
-//const { getAccessoryById, getAvailableAccessories } = require('../controllers/accessory');
 
 const createCube = async (req) => {
 	const { name, description, imageUrl, difficulty } = req.body;
@@ -15,7 +14,6 @@ const createCube = async (req) => {
 	});
 	try {
 		await newCube.save();
-		//console.log('Cube is successfully stored');
 	} catch (error) {
 		throw error;
 	}
@@ -58,6 +56,14 @@ const atachAccessory = async (cubeId, acc) => {
 	});
 };
 
+const searchByDifficulty = async (params) => {
+	const {search, from, to} = params;
+	const newSearch = search ? search : 'A' ;
+	const newFrom = from ? from : 1 ;
+	const newTo = to ? to : 6 ;
+	return await Cube.find({name: {$regex: newSearch, $options: 'i'}, difficulty: {$gte: newFrom, $lte: newTo}}).lean();
+};
+
 module.exports = {
 	createCube,
 	editCube,
@@ -66,4 +72,5 @@ module.exports = {
 	deleteCube,
 	getElementsToAtach,
 	atachAccessory,
+	searchByDifficulty,
 };

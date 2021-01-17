@@ -22,6 +22,9 @@ const isLoggedIn = (req, res, next) => {
 
 const getUserId = (req) => {
 	const token = req.cookies['uauth'];
+	if (!token) {
+		return null;
+	}
 	const decoded = jwt.decode(token);
 	return decoded.userId;
 };
