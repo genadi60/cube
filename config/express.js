@@ -9,7 +9,7 @@ module.exports = (app) => {
     ));
     app.set('view engine', '.hbs');
     // Setup the static files
-    app.use('/static', express.static('static'));
+    app.use(express.static('static'));
     // Setup the cookie-cookie
     app.use(cookieParser());
 };

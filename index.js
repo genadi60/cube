@@ -21,12 +21,13 @@ mongoose.connect(config.dbUrl, config.options, (err) => {
 });
 
 require('./config/express')(app);
+require('./config/routes')(app);
 
-app.use('/', indexRouter);
-app.use('/', authRouter);
-app.use('/', cubeRouter);
-app.use('/', accessoryRouter);
+// app.use('/', indexRouter);
+// app.use('/', authRouter);
+// app.use('/', cubeRouter);
+// app.use('/', accessoryRouter);
 
-app.use('*', notFound);
+//app.use('*', notFound);
 
 app.listen(config.port, console.log(`Server running at http://${config.host}:${config.port}/`));
