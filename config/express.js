@@ -10,6 +10,6 @@ module.exports = (app) => {
     app.set('view engine', '.hbs');
     // Setup the static files
     app.use(express.static('static'));
-    // Setup the cookie-cookie
+    // Setup the cookie-parser
     app.use(cookieParser());
 };

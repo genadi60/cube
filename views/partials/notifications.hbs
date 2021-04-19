@@ -1,5 +1,17 @@
-{{#if message}}
-<div id="notifications">
-	<p id="notification-message">{{message}}</p>
+{{#if message_error}}
+<div class="error">
+	<span>{{message_error}}</span>
 </div>
+{{else}}
+	{{#if message_success}}
+	<div class="success">
+		<span>{{message_success}}</span>
+	</div>
+	{{else}}
+		{{#if message_load}}
+		<div>
+			<span class="load">{{message_load}}</span>
+		</div>
+		{{/if}}
+	{{/if}}
 {{/if}}

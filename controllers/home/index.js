@@ -16,7 +16,7 @@ module.exports = {
 					title: 'Cubicle',
 					cubes,
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 				});
 			}
 		},

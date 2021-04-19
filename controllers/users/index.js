@@ -1,4 +1,5 @@
 const User = require('../../models/user');
+const Cube = require('../../models/cube');
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../../utils')
 
@@ -46,13 +47,13 @@ module.exports = {
 				const userObject = await user.save();
 				const token = generateToken({ userId: userObject._id, username: userObject.username });
 				res.cookie('uauth', token);
-				res.redirect('/');
+				res.redirect('/user/login');
 			} catch (error) {
 				const {	username, password,	repeatPassword } = req.body;
 				res.render('users/registerPage', {
 					title: 'Register Page',
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 					username,
 					password,
 					repeatPassword,
@@ -65,7 +66,6 @@ module.exports = {
 			if(!username || !password) {
 				throw new Error('Invalid input data.');
 			}
-			console.log(password);
 			try {
 				const user = await User.findOne({ username });
 				if (user) {
@@ -79,13 +79,21 @@ module.exports = {
 				} else {
 					throw new Error('Username or password incorrect.');
 				}
-				res.redirect('/');
+				req.isLoggedIn = true;
+				const message = 'Successful login.';
+				const cubes = await Cube.find().lean();
+				res.render('home', {
+					title: 'Cubicle',
+					cubes,
+					isLoggedIn: req.isLoggedIn,
+					message_success: message,
+				});
 			} catch (error) {
 				const {	username, password } = req.body;
 				res.render('users/loginPage', {
 					title: 'Login Page',
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 					username,
 					password,
 				});

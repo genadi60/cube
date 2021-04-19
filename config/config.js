@@ -3,15 +3,28 @@ module.exports = {
         port: process.env.PORT || 3000,
         host: process.env.HOST || 'localhost',
         privateKey: process.env.PRIVATE_KEY || 'privateKey',
+        dbUser: process.env.DB_USER || 'user',
+        dbPassword: process.env.DB_PASS || 'password',
+        dbName: process.env.DB_NAME || 'name',
         options: {
             useNewUrlParser: true, 
             useUnifiedTopology: true, 
             useCreateIndex: true,
             useFindAndModify: false,
         },
-        dbUrl: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cubes.iev4k.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-        
     },
     production: {
+        port: 3000,
+        host: 'localhost',
+        privateKey: 'privateKey',
+        dbUser: 'user',
+        dbPassword: 'password',
+        dbName: 'name',
+        options: {
+            useNewUrlParser: true, 
+            useUnifiedTopology: true, 
+            useCreateIndex: true,
+            useFindAndModify: false,
+        },
     }
 };

@@ -68,7 +68,6 @@ module.exports = {
 			const id = req.params.id;
 			try {
 				const cube = await Cube.findById(id).lean();
-				console.log(cube.difficulty);
 				res.render('models/cube/deleteCubePage', {
 					title: 'Delete cube',
 					cube,
@@ -108,8 +107,6 @@ module.exports = {
 		},
 	},
 
-	
-
 	post: {
 
 		async createCube(req, res, next) {
@@ -134,7 +131,7 @@ module.exports = {
 					imageUrl, 
 					difficulty,
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 				});
 			}
 		},
@@ -153,18 +150,8 @@ module.exports = {
 					cube,
 					isCreator,
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 				});
-			}
-		},
-
-		async deleteCube(req, res, next) {
-			const id = req.params.id;
-			try {
-				await Cube.deleteOne({  _id: id });
-				res.redirect('/');
-			} catch (error) {
-				await handleError(req, res, error);
 			}
 		},
 
@@ -189,7 +176,7 @@ module.exports = {
 					cube,
 					isCreator,
 					isLoggedIn: req.isLoggedIn,
-					message: error.message,
+					message_error: error.message,
 				});
 			}
 		},
@@ -227,5 +214,17 @@ module.exports = {
 			}
 			
 		}
+	},
+
+	delete: {
+		async deleteCube(req, res, next) {
+			const id = req.params.id;
+			try {
+				await Cube.deleteOne({  _id: id });
+				res.redirect('/');
+			} catch (error) {
+				await handleError(req, res, error);
+			}
+		},
 	},
 }

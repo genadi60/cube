@@ -12,8 +12,9 @@ router.get('/atachAccessory-cube/:id', handler.get.atachAccessory);
 router.post('/create-cube', handler.post.createCube);
 router.post('/edit-cube/:id', handler.post.editCube);
 router.post('/search', handler.post.searchByDifficulty);
-router.post('/delete-cube/:id', handler.post.deleteCube);
 router.post('/atachAccessory-cube/:id', handler.post.atachAccessory);
+
+router.post('/delete-cube/:id', handler.delete.deleteCube);
 
 router.get('/create-accessory', handler.get.createAccessory);
 router.post('/create-accessory', handler.post.createAccessory);

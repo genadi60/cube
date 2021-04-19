@@ -227,21 +227,36 @@ div.form {
     margin: auto;
 }
 
-span.error {
+div.error,
+div.success {
     animation: fadeOut 1s forwards;
     animation-delay: 2s;
-    background: #EF5542;
     color: white;
     padding: 10px;
     text-align: center;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 5px;
     font-weight: normal;
+    font-style: italic;
     position: relative;
     float: right;
     margin-top: 20px;
     overflow: hidden;
+}
+
+div.error:after,
+div.success:after {
     display: block;
+    content: "";
+    clear: both;
+}
+
+div.error {
+    background: #EF5542;
+}
+
+div.success {
+    background: #42EF55;
 }
 
 img#sadFaceImg{
